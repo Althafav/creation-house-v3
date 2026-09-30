@@ -72,6 +72,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${roboto.variable} ${bigShoulders.variable}`}>
       <body>
+        {/* Without JS, GSAP never reveals the hidden [data-reveal*] elements. */}
+        <noscript>
+          <style>{`[data-reveal],[data-reveal-text],[data-reveal-image]{visibility:visible!important}[data-scrub-word]{opacity:1!important}`}</style>
+        </noscript>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

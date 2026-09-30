@@ -4,6 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 @AGENTS.md
 
+## GSAP
+
+Before writing or editing any GSAP/animation code, read @GSAP.md (project conventions) and load the relevant `gsap-*` skill from `.agents/skills/`.
+
 ## Project
 
 Marketing site for Creation House (exhibition stands & events, Dubai) — https://creation-house.ae/. Next.js 16 App Router, React 19 with the React Compiler enabled (`reactCompiler: true`), Tailwind CSS v4, TypeScript (strict). Content comes from Kontent.ai.

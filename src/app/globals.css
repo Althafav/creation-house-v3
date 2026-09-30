@@ -49,6 +49,20 @@
   }
 }
 
+/* GSAP reveals: hidden until their motion component shows them (see GSAP.md). */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal],
+  [data-reveal-text],
+  [data-reveal-image] {
+    visibility: hidden;
+  }
+
+  /* ScrubWords start dim so there's no bright flash before hydration. */
+  [data-scrub-word] {
+    opacity: 0.15;
+  }
+}
+
 /* Hollow display text (Marquee) */
 @utility text-outline {
   color: transparent;

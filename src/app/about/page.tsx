@@ -16,7 +16,7 @@ export default async function AboutPage() {
   const pageData = await getPageElements("about_page_2026");
 
   return (
-    <div className="page-bg relative overflow-x-hidden">
+    <div className="page-bg relative overflow-x-clip">
       <PageBanner title="Creation House" breadcrumbs={[{ label: "About us" }]} />
 
       <AboutGallery images={pageData.aboutimages?.value} />

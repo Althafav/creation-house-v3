@@ -19,7 +19,7 @@ export default async function ProjectsPage() {
   ].reverse();
 
   return (
-    <div className="page-bg relative overflow-x-hidden">
+    <div className="page-bg relative overflow-x-clip">
       <PageBanner
         title={pageData.bannerheading?.value || "Our Projects"}
         breadcrumbs={[{ label: "Projects" }]}

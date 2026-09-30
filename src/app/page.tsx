@@ -20,14 +20,14 @@ export default async function Home() {
   const pageData = await getPageElements("home_page_2026");
 
   return (
-    <div className="page-bg relative overflow-x-hidden">
+    <div className="page-bg relative overflow-x-clip">
       <Hero
         heading={pageData.bannerheading?.value}
         bannervideolink={pageData.bannervideolink?.value}
         ctabuttons={pageData.bannercta?.linkedItems}
       />
       <Marquee />
-      <About image={pageData.aboutimage?.value?.[0]} />
+      <About images={pageData.aboutimage?.value} />
       <Services
         heading={pageData.serviceheading?.value}
         items={pageData.serviceitems?.linkedItems}

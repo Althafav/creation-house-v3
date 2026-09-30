@@ -1,6 +1,5 @@
 import Image from "next/image";
-
-const WORDMARK = "Creation House".split("");
+import FooterWordmark from "./FooterWordmark";
 
 const FOOTER_COLS = [
   {
@@ -133,19 +132,7 @@ export default function Footer() {
             height={80}
             className="block h-24 w-auto object-contain object-left sm:h-32 lg:h-44"
           />
-          <h3
-            aria-hidden="true"
-            className="flex justify-center whitespace-nowrap text-white"
-          >
-            {WORDMARK.map((ch, i) => (
-              <span
-                key={i}
-                className="inline-block text-[14.4cqi] leading-[.8] font-bold tracking-normal opacity-[.16] transition-[opacity,translate,color] duration-[450ms] ease-expo hover:-translate-y-2 hover:text-accent hover:opacity-100"
-              >
-                {ch === " " ? " " : ch}
-              </span>
-            ))}
-          </h3>
+          <FooterWordmark />
         </div>
 
         <div className="flex flex-wrap justify-between gap-x-6 gap-y-2 border-t border-white/10 pt-6 text-[12.5px] text-white/35">

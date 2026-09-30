@@ -1,5 +1,8 @@
 import Button from "@/components/ui/Button";
 import Section from "@/components/ui/Section";
+import Reveal from "@/components/motion/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
+import ZoomIn from "@/components/motion/ZoomIn";
 
 // Print crop marks, drawn for the top-left corner and flipped into the others.
 const CROP_MARKS = [
@@ -12,7 +15,7 @@ const CROP_MARKS = [
 export default function CTASection() {
   return (
     <Section id="inquiry" spacing="md" className="bg-white">
-      <div className="relative">
+      <ZoomIn className="relative">
         {CROP_MARKS.map((position) => (
           <svg
             key={position}
@@ -25,14 +28,17 @@ export default function CTASection() {
         ))}
 
         <div className="flex flex-col gap-10 rounded-2xl bg-black sm:rounded-3xl px-7 md:px-12 lg:px-20 pt-10 md:pt-16 lg:pt-24 pb-8 md:pb-12 lg:pb-16 text-white lg:flex-row lg:items-end lg:justify-between">
-          <h2 className="max-w-[11ch] text-4xl sm:text-7xl   font-semibold tracking-normal">
+          <TextReveal className="max-w-[11ch] text-4xl sm:text-7xl   font-semibold tracking-normal">
             Planning your next stand?
-          </h2>
-          <div className="shrink-0 lg:pb-[0.6vw] [&>a]:w-full [&>a]:justify-between sm:[&>a]:w-auto">
+          </TextReveal>
+          <Reveal
+            delay={0.2}
+            className="shrink-0 lg:pb-[0.6vw] [&>a]:w-full [&>a]:justify-between sm:[&>a]:w-auto"
+          >
             <Button label="Start an inquiry" href="/contact-us" variant="primary" />
-          </div>
+          </Reveal>
         </div>
-      </div>
+      </ZoomIn>
     </Section>
   );
 }

@@ -1,5 +1,8 @@
 import Section from "@/components/ui/Section";
 import { getPageElements } from "@/modules/seo";
+import RefreshOnToggle from "@/components/motion/RefreshOnToggle";
+import Reveal from "@/components/motion/Reveal";
+import TextReveal from "@/components/motion/TextReveal";
 
 const stripHtml = (html: string) =>
   html
@@ -54,16 +57,19 @@ export default async function FAQ() {
               <p className="font-medium">{el.subheading.value}</p>
             </div>
           )}
-          <h2 className="mt-4 text-4xl leading-[.95] font-extrabold tracking-tight uppercase md:text-6xl lg:text-[72px]">
+          <TextReveal className="mt-4 text-4xl leading-[.95] font-extrabold tracking-tight uppercase md:text-6xl lg:text-[72px]">
             {el.heading?.value}
-          </h2>
+          </TextReveal>
         </div>
 
-        <div className="border-t border-black/15">
+        {/* Opening an answer changes page height, so triggers below (CTA, footer) are re-measured. */}
+        <RefreshOnToggle className="border-t border-black/15">
+          <Reveal stagger>
           {items.map((item) => (
             <details
               key={item.system.codename}
               name="faq"
+              data-reveal
               className="group border-b border-black/15"
             >
               <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 marker:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:py-6 [&::-webkit-details-marker]:hidden">
@@ -94,7 +100,8 @@ export default async function FAQ() {
               />
             </details>
           ))}
-        </div>
+          </Reveal>
+        </RefreshOnToggle>
       </div>
     </Section>
   );
