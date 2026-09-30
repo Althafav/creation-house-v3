@@ -4,16 +4,26 @@ import { useMemo, useState } from "react";
 import Section from "@/components/ui/Section";
 import CmsImage from "@/components/ui/CmsImage";
 
-const ALL = "All";
+const ALL = "all";
+
+type Category = { name: string; codename: string };
+
+/** Options picked in the `category` multiple-choice element (an item can have several). */
+const getCategories = (item: any): Category[] =>
+  item.elements.category?.value ?? [];
 
 export default function ProjectsGrid({ projects = [] }: { projects?: any[] }) {
   const categories = useMemo(() => {
-    const set = new Set<string>();
+    const seen = new Map<string, string>();
     for (const item of projects) {
-      const cat = item.elements.section_title?.value;
-      if (cat) set.add(cat);
+      for (const { codename, name } of getCategories(item)) {
+        if (!seen.has(codename)) seen.set(codename, name);
+      }
     }
-    return [ALL, ...set];
+    return [
+      { codename: ALL, name: "All" },
+      ...Array.from(seen, ([codename, name]) => ({ codename, name })),
+    ];
   }, [projects]);
 
   const [active, setActive] = useState(ALL);
@@ -21,7 +31,9 @@ export default function ProjectsGrid({ projects = [] }: { projects?: any[] }) {
   const filtered =
     active === ALL
       ? projects
-      : projects.filter((item) => item.elements.section_title?.value === active);
+      : projects.filter((item) =>
+          getCategories(item).some((c) => c.codename === active),
+        );
 
   if (projects.length === 0) return null;
 
@@ -30,19 +42,19 @@ export default function ProjectsGrid({ projects = [] }: { projects?: any[] }) {
       <div className="container mx-auto">
         {categories.length > 2 && (
           <div className="mb-6 flex flex-wrap gap-2.5 md:mb-8 lg:mb-10">
-            {categories.map((cat) => (
+            {categories.map(({ codename, name }) => (
               <button
-                key={cat}
+                key={codename}
                 type="button"
-                onClick={() => setActive(cat)}
-                aria-pressed={active === cat}
+                onClick={() => setActive(codename)}
+                aria-pressed={active === codename}
                 className={`cursor-pointer rounded-full border px-5 py-2 font-mono text-[11px] tracking-[.2em] uppercase transition-colors duration-200 ${
-                  active === cat
+                  active === codename
                     ? "border-accent bg-accent text-black"
                     : "border-white/20 text-white/70 hover:border-accent hover:text-accent"
                 }`}
               >
-                {cat}
+                {name}
               </button>
             ))}
           </div>
@@ -65,9 +77,11 @@ export default function ProjectsGrid({ projects = [] }: { projects?: any[] }) {
                 />
               </div>
               <div className="flex flex-col gap-1 pt-3 sm:pt-4">
-                {item.elements.section_title?.value && (
+                {getCategories(item).length > 0 && (
                   <span className="font-mono text-[11px] tracking-[.2em] text-accent uppercase">
-                    {item.elements.section_title.value}
+                    {getCategories(item)
+                      .map((c) => c.name)
+                      .join(" · ")}
                   </span>
                 )}
                 <h3 className="text-lg leading-tight font-bold text-white uppercase transition-colors duration-200 group-hover:text-accent sm:text-xl lg:text-2xl">
