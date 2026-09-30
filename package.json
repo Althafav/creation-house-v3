@@ -8,6 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@kontent-ai/delivery-sdk": "^16.4.8",
+    "@tailwindcss/typography": "^0.5.20",
     "next": "16.3.6",
     "react": "19.2.8",
     "react-dom": "19.2.8"

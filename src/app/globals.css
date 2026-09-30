@@ -1,26 +1,62 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@theme {
+  --color-accent: #8be2c6;
+  --color-primary: #8be2c6;
+  --color-primary-variant: #7bd0e0;
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --animate-marquee: marquee 34s linear infinite;
+  --animate-rise: rise 1.15s var(--ease-expo) 0.25s both;
+  --animate-fade: fade 1.2s ease 0.3s both;
+  --animate-shine: shine 3.6s ease-in-out infinite;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-big-shoulders), ui-sans-serif, system-ui,
+    sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  max-width: 90vw;
+
+  @media (min-width: 1706px) {
+    max-width: 1536px;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Hollow display text (Marquee) */
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(255 255 255 / 0.75);
+}
+
+/* Red/cyan chromatic split; drop-shadow follows the stroke on outlined text */
+@utility chroma {
+  filter: drop-shadow(-1.5px 0 rgb(255 60 90 / 0.7))
+    drop-shadow(1.5px 0 rgb(60 220 255 / 0.7));
 }
